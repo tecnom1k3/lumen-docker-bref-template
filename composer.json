@@ -1,7 +1,7 @@
 {
     "name": "digitec/auth",
     "require": {
-        "bref/bref": "^0.5.23",
+        "bref/bref": "^2.1.17",
         "laravel/lumen-framework": "^7.0",
         "php": "^7.2.5"
     },
