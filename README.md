@@ -1,24 +1,61 @@
-# Lumen PHP Framework
+# Lumen Docker Bref Template
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+This repository is a small example of the [Lumen](https://lumen.laravel.com/) framework configured to run inside Docker and to be deployed to AWS Lambda using [Bref](https://bref.sh/) and the Serverless Framework.
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+## Features
 
-## Official Documentation
+- Docker environment with `nginx` and `php-fpm` (PHP 7.4) for local development
+- `develop.sh` helper script providing common commands
+- Serverless configuration (`serverless.yml`) for deploying the app to AWS Lambda
+- Example `IndexController` that returns the current timestamp
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+## Requirements
 
-## Contributing
+- Docker and docker-compose available locally
+- AWS credentials for deployment
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Getting Started
 
-## Security Vulnerabilities
+Install Composer dependencies and start the local containers:
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+```bash
+./develop.sh composer install
+./develop.sh up -d
+```
+
+Visit `http://localhost:8080/` to verify the application is running.
+
+## Running Tests
+
+Execute the test suite with phpunit:
+
+```bash
+./develop.sh test
+```
+
+If docker-compose is unavailable you can run `./vendor/bin/phpunit` directly after running `composer install`.
+
+## Deployment
+
+Deploy the application to AWS Lambda via the Serverless Framework:
+
+```bash
+./develop.sh deploy
+```
+
+To remove the deployed stack:
+
+```bash
+./develop.sh remove
+```
+
+AWS credentials are loaded from `phpdocker/php-fpm/credentials.ini` when using the Docker container.
+
+## Additional Information
+
+- Docker configuration lives in the `phpdocker/` directory.
+- Terraform configuration for the backend is in `terraform/`.
 
 ## License
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is released under the MIT License.
